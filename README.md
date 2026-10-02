@@ -11,8 +11,7 @@
 - **Erreurs** : surtout `Satisfaction`  `Insatisfaction` (23 des 44 erreurs hors-échantillon) : négations non gérées, mots rares, thèmes partagés, chiffres supprimés.
 - **Limites** : 150 textes seulement (test de 30 : un exemple = 3,3 points), peu de données éwé/mina, sac de mots sans contexte, hyperparamètres non optimisés.
 - **Pistes** : fine-tuning de CamemBERT / XLM-R ; gestion de la négation et des nombres ; plus de commentaires mixtes avec lexique validé par des locuteurs.
-- **Bonus — interface web (Streamlit)** : le modèle (`modele_classification.joblib`, entraîné sur les 150 textes) est branché à `app.py`. Démo en ligne : https://afriklangteststagedatascience-dnjdu5i5nawsgfrj5elezw.streamlit.app/
-
+- **Bonus — interface web (Streamlit)** : le modèle (`modele_classification.joblib`, entraîné sur les 150 textes) est branché à `app.py`. Démo en ligne : (https://afriklangtesttechniquestagedatascience-dmaksuzk7huwvmavshlkuu.streamlit.app/)
 
 
 ## Installation et exécution en local
