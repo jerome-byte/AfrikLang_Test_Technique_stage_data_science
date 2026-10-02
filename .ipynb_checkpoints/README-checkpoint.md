@@ -1,0 +1,13 @@
+# Classification de commentaires citoyens — Test technique NLP (TAISS 2026 × Afriklang)
+- **Données** : 150 commentaires équilibrés (50 Satisfaction / 50 Insatisfaction / 50 Suggestion), en français ; seuls 3 commentaires sont mixtes éwé/mina.
+- **Nettoyage** : minuscules, suppression de la ponctuation, des chiffres et des symboles, tokenisation Unicode ; accents conservés (neutralisés ensuite dans le vectoriseur).
+- **Stopwords** : liste maison (108 mots grammaticaux) qui **conserve** les négations, intensifieurs et marqueurs de suggestion (`pas`, `aucune`, `sans`, `trop`, `serait`…), car ils portent le sens.
+- **Éwé/mina** : `akpe`→`merci`, `nyuie`→`bien`, mots-outils (`na`, `wò`) supprimés, autres termes conservés. Les 3 stratégies testées donnent des scores équivalents (trop peu d'exemples mixtes).
+- **Vectorisation** : TF-IDF sur n-grammes de caractères (2–5), retenu par validation croisée sur le train (F1 macro ≈ 0,66 contre 0,63–0,65 pour les variantes à base de mots, écarts non significatifs).
+- **Modèles** : Logistic Regression, SVM linéaire, Naive Bayes, Random Forest ; split 80/20 stratifié, `random_state=42`.
+- **Résultats** : sur le test (30 exemples) accuracy 0,80–0,83 ; en validation croisée 5×3, F1 macro **0,72** (LR et SVM), 0,67 (RF et NB). La valeur de validation croisée est la plus fiable.
+- **Erreurs** : surtout `Satisfaction` ↔ `Insatisfaction` (23 des 44 erreurs hors-échantillon) : négations non gérées, mots rares, thèmes partagés, chiffres supprimés.
+- **Limites** : 150 textes seulement (test de 30 : un exemple = 3,3 points), peu de données éwé/mina, sac de mots sans contexte, hyperparamètres non optimisés.
+- **Pistes** : fine-tuning de CamemBERT / XLM-R ; gestion de la négation et des nombres ; plus de commentaires mixtes avec lexique validé par des locuteurs.
+- **Lancer** : `pip install -r requirements.txt` puis ouvrir `notebook_classification_commentaires.ipynb` (le fichier `dataset_nlp_test_tal.csv` doit être dans le même dossier).
+- **Bonus — interface web (Streamlit)** : `python entrainer_modele.py` (sauvegarde `modele_classification.joblib`, entraîné sur les 150 textes) puis `streamlit run app.py`. Le prétraitement est partagé via `pretraitement.py`. Démo en ligne : _lien Streamlit Community Cloud à ajouter ici_.
